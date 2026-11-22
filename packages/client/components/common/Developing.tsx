@@ -11,7 +11,7 @@ if (spooky) {
     return '[disabled] reload to apply the changes.';
   };
 } else {
-  console.log('%cIf you are making a userscript or userstyle, or are trying to use one I recommend running "enableSpOwOkyOwOkyDeveloper" for dev features.%c', 'font-weight: bold; font-size: 64pt; background: black; color: white;');
+  console.log('%cIf you are making a userscript or userstyle, or are trying to use one I recommend running "enableSpOwOkyOwOkyDeveloper" for dev features.%c', 'font-weight: bold; font-size: 16pt; background: #000000; color: #ff0000;');
   (globalThis as Record<string, unknown>).enableSpOwOkyOwOkyDeveloper = () => {
     localStorage.setItem('SpOwOky OwOky', 'Pumpkin Song');
     try {
