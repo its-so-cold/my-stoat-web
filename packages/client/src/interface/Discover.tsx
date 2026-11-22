@@ -7,6 +7,7 @@ import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { paramsFromPathname, useLocation, useNavigate } from "@revolt/routing";
 import { useState } from "@revolt/state";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 /**
  * stt.gg wrapper
@@ -90,10 +91,10 @@ export function Discover() {
   query.set("embedded", "true");
   const src = `https://stt.gg/${location.pathname}?${query}`;
 
-  return <Base ref={setRef} src={src} />;
+  return wrapComponent("src/interface/Discover#Discover", <Base ref={setRef} src={src} />);
 }
 
-const Base = styled("iframe", {
+const Base = wrapLazyComponent("src/interface/Discover#Base", styled("iframe", {
   base: {
     minWidth: 0,
     flexGrow: 1,
@@ -101,4 +102,4 @@ const Base = styled("iframe", {
     position: "relative",
     flexDirection: "column",
   },
-});
+}));

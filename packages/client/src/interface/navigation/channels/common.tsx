@@ -1,9 +1,10 @@
 import { styled } from "styled-system/jsx";
+import { wrapLazyComponent } from "@revolt/common";
 
 /**
  * Common styles for sidebar
  */
-export const SidebarBase = styled("div", {
+export const SidebarBase = wrapLazyComponent("src/interface/navigation/channels/common#SidebarBase", styled("div", {
   base: {
     display: "flex",
     flexShrink: 0,
@@ -27,4 +28,4 @@ export const SidebarBase = styled("div", {
       flexGrow: 1,
     },
   },
-});
+}));

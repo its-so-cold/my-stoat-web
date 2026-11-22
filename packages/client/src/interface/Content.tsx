@@ -5,6 +5,7 @@ import { useParams } from "@revolt/routing";
 import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
+import { wrapComponent } from "@revolt/common";
 
 /**
  * Render content without sidebars
@@ -16,7 +17,8 @@ export const Content: Component = () => {
     any?: string;
   }>();
 
-  return (
+  return wrapComponent(
+    "src/interface/Content#Content",
     <Switch fallback={<HomePage />}>
       <Match when={params.channel}>
         <ChannelPage />

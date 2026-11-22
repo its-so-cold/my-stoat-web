@@ -22,6 +22,7 @@ import {
   Username,
   UserStatus,
 } from "@revolt/ui";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common"; 
 
 interface Props {
   /**
@@ -44,7 +45,8 @@ interface Props {
  * Member Sidebar
  */
 export function MemberSidebar(props: Props) {
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/MemberSidebar#MemberSidebar",
     <Switch>
       <Match when={props.channel.type === "Group"}>
         <GroupMemberSidebar
@@ -175,7 +177,8 @@ export function ServerMemberSidebar(props: Props) {
     () => elements().filter((ele) => ele.t === 1 && ele.isOnline).length,
   );
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/MemberSidebar#ServerMemberSidebar",
     <Container>
       <Show when={!props.isLargeServer}>
         <MemberTitle bottomMargin="yes">
@@ -231,7 +234,8 @@ export function ServerMemberSidebar(props: Props) {
  * Group Member Sidebar
  */
 export function GroupMemberSidebar(props: Props) {
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/MemberSidebar#GroupMemberSidebar",
     <Container>
       <MemberTitle>
         <Row align>{props.channel.recipientIds.size} members</Row>
@@ -264,17 +268,17 @@ export function GroupMemberSidebar(props: Props) {
 /**
  * Container styles
  */
-const Container = styled("div", {
+const Container = wrapLazyComponent("src/interface/channels/text/MemberSidebar#Container", styled("div", {
   base: {
     paddingRight: "var(--gap-md)",
     width: "var(--layout-width-channel-sidebar)",
   },
-});
+}));
 
 /**
  * Category Title
  */
-const CategoryTitle = styled("div", {
+const CategoryTitle = wrapLazyComponent("src/interface/channels/text/MemberSidebar#CategoryTitle", styled("div", {
   base: {
     padding: "28px 14px 0",
     color: "var(--md-sys-color-on-surface)",
@@ -284,21 +288,21 @@ const CategoryTitle = styled("div", {
 
     ...typography.raw({ class: "label", size: "small" }),
   },
-});
+}));
 
-const RoleIcon = styled("img", {
+const RoleIcon = wrapLazyComponent("src/interface/channels/text/MemberSidebar#RoleIcon", styled("img", {
   base: {
     width: "16px",
     height: "16px",
     borderRadius: "var(--borderRadius-sm)",
     objectFit: "cover",
   },
-});
+}));
 
 /**
  * Member title
  */
-const MemberTitle = styled("div", {
+const MemberTitle = wrapLazyComponent("src/interface/channels/text/MemberSidebar#MemberTitle", styled("div", {
   base: {
     marginTop: "12px",
     marginLeft: "14px",
@@ -314,19 +318,19 @@ const MemberTitle = styled("div", {
       },
     },
   },
-});
+}));
 
 /**
  * Styles required to correctly display name and status
  */
-const NameStatusStack = styled("div", {
+const NameStatusStack = wrapLazyComponent("src/interface/channels/text/MemberSidebar#NameStatusStack", styled("div", {
   base: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
   },
-});
+}));
 
 function Member(props: {
   user?: User;
@@ -363,7 +367,8 @@ function Member(props: {
               : t`Offline`,
     );
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/MemberSidebar#Member",
     <div
       use:floating={floatingUserMenus(
         (props.user ?? props.member?.user)!,

@@ -7,6 +7,7 @@ import {
   Switch,
 } from "solid-js";
 
+
 import { Server } from "stoat.js";
 import { styled } from "styled-system/jsx";
 
@@ -14,6 +15,7 @@ import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { MessageCache } from "@revolt/app/interface/channels/text/MessageCache";
 import { Titlebar } from "@revolt/app/interface/desktop/Titlebar";
 import { useClient, useClientLifecycle } from "@revolt/client";
+import { wrapLazyComponent, wrapComponent } from "@revolt/common";
 import { State } from "@revolt/client/Controller";
 import { NotificationsWorker } from "@revolt/client/NotificationsWorker";
 import { useModals } from "@revolt/modal";
@@ -98,7 +100,8 @@ const Interface = (props: { children: JSX.Element }) => {
     state.setAppDrawer((sDrawer = undefined));
   });
 
-  return (
+  return wrapComponent(
+    "src/Interface#Interface",
     <MessageCache client={client()}>
       <AppRoot ref={rootRef} class="app_root">
         <Titlebar />
@@ -165,18 +168,18 @@ const Interface = (props: { children: JSX.Element }) => {
   );
 };
 
-const AppRoot = styled("div", {
+const AppRoot = wrapLazyComponent("src/Interface#AppRoot", styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
     height: "100%",
   },
-});
+}));
 
 /**
  * Parent container
  */
-const Layout = styled("div", {
+const Layout = wrapLazyComponent("src/Interface#Layout", styled("div", {
   base: {
     display: "flex",
     height: "100%",
@@ -194,12 +197,12 @@ const Layout = styled("div", {
       },
     },
   },
-});
+}));
 
 /**
  * Main content container
  */
-const Content = styled("div", {
+const Content = wrapLazyComponent("src/Interface#Content", styled("div", {
   base: {
     background: "var(--md-sys-color-surface-container-low)",
     display: "flex",
@@ -220,6 +223,6 @@ const Content = styled("div", {
       },
     },
   },
-});
+}));
 
 export default Interface;

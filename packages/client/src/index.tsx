@@ -22,7 +22,7 @@ import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
 import { ClientContext, SoundContext, useClient } from "@revolt/client";
-import { DeviceContext } from "@revolt/common";
+import { DeviceContext, wrapComponent } from "@revolt/common";
 import { I18nProvider } from "@revolt/i18n";
 import { InstanceContext } from "@revolt/instance";
 import { KeybindContext } from "@revolt/keybinds";
@@ -58,7 +58,7 @@ attachDevtoolsOverlay();
  */
 function PWARedirect() {
   const state = useState();
-  return <Navigate href={state.layout.getLastActivePath()} />;
+  return wrapComponent("src/index#PWARedirect", <Navigate href={state.layout.getLastActivePath()} />);
 }
 
 /**
@@ -68,7 +68,7 @@ function SettingsRedirect() {
   const { openModal } = useModals();
 
   onMount(() => openModal({ type: "settings", config: "user" }));
-  return <PWARedirect />;
+  return wrapComponent("src/index#SettingsRedirect", <PWARedirect />);
 }
 
 /**
@@ -90,7 +90,7 @@ function InviteRedirect() {
     }
   });
 
-  return <PWARedirect />;
+  return wrapComponent("src/index#InviteRedirect", <PWARedirect />);
 }
 
 /**
@@ -112,7 +112,7 @@ function BotRedirect() {
     }
   });
 
-  return <PWARedirect />;
+  return wrapComponent("src/index#BotRedirect", <PWARedirect />);
 }
 
 function MountContext(props: { children?: JSX.Element }) {

@@ -17,7 +17,7 @@ import { styled } from "styled-system/jsx";
 
 import { ServerFolderContextMenu } from "@revolt/app/menus";
 import { useClient } from "@revolt/client";
-import { useDevice } from "@revolt/common";
+import { useDevice, wrapComponent, wrapLazyComponent } from "@revolt/common";
 import { useInstance } from "@revolt/instance";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
@@ -264,7 +264,8 @@ export const ServerList = (props: Props) => {
     return intent?.type === "move" && intent.before === undefined;
   };
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/ServerList#ServerList",
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
         <a
@@ -495,7 +496,8 @@ function ServerEntry(props: {
       0,
     );
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/ServerList#ServerEntry",
     <Tooltip
       placement="right"
       content={() => (
@@ -625,7 +627,8 @@ function FolderEntry(props: {
   const holdsSelected = () =>
     props.entry.servers.some((server) => server.id === props.selectedServer());
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/ServerList#FolderEntry",
     <FolderGroup
       expanded={!collapsed()}
       style={{
@@ -809,7 +812,8 @@ const railGhost = css({
 function FolderPreview(props: { servers: Server[]; colour?: string }) {
   const size = () => (props.servers.length > 2 ? 13 : 16);
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/ServerList#FolderPreview",
     <FolderPreviewBase
       style={{
         background: props.colour ? folderTint(props.colour, 30) : undefined,
@@ -828,7 +832,7 @@ function folderTint(colour: string, amount: number) {
   return `color-mix(in srgb, ${colour} ${amount}%, transparent)`;
 }
 
-const FolderPreviewBase = styled("div", {
+const FolderPreviewBase = wrapLazyComponent("src/interface/navigation/servers/ServerList#FolderPreviewBase", styled("div", {
   base: {
     width: "100%",
     height: "100%",
@@ -839,16 +843,16 @@ const FolderPreviewBase = styled("div", {
     alignContent: "center",
     justifyContent: "center",
   },
-});
+}));
 
-const ServerListBase = styled("div", {
+const ServerListBase = wrapLazyComponent("src/interface/navigation/servers/ServerList#ServerListBase", styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
 
     fill: "var(--md-sys-color-on-surface)",
   },
-});
+}));
 
 /**
  * Container around list of servers
@@ -905,7 +909,7 @@ const entryContainer = cva({
 /**
  * Group a folder together with its servers while expanded
  */
-const FolderGroup = styled("div", {
+const FolderGroup = wrapLazyComponent("src/interface/navigation/servers/ServerList#FolderGroup", styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
@@ -924,12 +928,12 @@ const FolderGroup = styled("div", {
     },
   },
   defaultVariants: { expanded: false },
-});
+}));
 
 /**
  * Divider line between two lists
  */
-const LineDivider = styled("div", {
+const LineDivider = wrapLazyComponent("src/interface/navigation/servers/ServerList#LineDivider", styled("div", {
   base: {
     height: "1px",
     flexShrink: 0,
@@ -937,12 +941,12 @@ const LineDivider = styled("div", {
     width: "calc(100% - 24px)",
     background: "var(--md-sys-color-outline-variant)",
   },
-});
+}));
 
 /**
  * Shadow at the bottom of the list
  */
-const Shadow = styled("div", {
+const Shadow = wrapLazyComponent("src/interface/navigation/servers/ServerList#Shadow", styled("div", {
   base: {
     height: 0,
     zIndex: 1,
@@ -956,4 +960,4 @@ const Shadow = styled("div", {
         "linear-gradient(to bottom, transparent, var(--md-sys-color-surface-container-highest))",
     },
   },
-});
+}));

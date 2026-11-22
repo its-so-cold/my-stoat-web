@@ -26,19 +26,20 @@ import { useClient, useUser } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 import { Avatar, Column, Row, Symbol, Text, UserStatus } from "@revolt/ui";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common"; 
 
 interface Props {
   anchor: Accessor<HTMLDivElement | undefined>;
 }
 
-const TruncatedStatusText = styled("div", {
+const TruncatedStatusText = wrapLazyComponent("src/interface/navigation/servers/UserMenu#TruncatedStatusText", styled("div", {
   base: {
     maxWidth: "var(--layout-width-user-context-menu-truncate)",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
-});
+}));
 
 /**
  * User menu attached to the server list
@@ -98,7 +99,8 @@ export function UserMenu(props: Props) {
     navigator.clipboard.writeText(user()!.id);
   }
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/UserMenu#UserMenu",
     <Portal mount={document.getElementById("floating")!}>
       <Presence>
         <Show when={show()}>
@@ -269,10 +271,10 @@ export function UserMenu(props: Props) {
   );
 }
 
-const Status = styled("div", {
+const Status = wrapLazyComponent("src/interface/navigation/servers/UserMenu#Status", styled("div", {
   base: {
     width: "16px",
     display: "flex",
     justifyContent: "center",
   },
-});
+}));

@@ -21,11 +21,12 @@ import {
 import Wordmark from "../../public/assets/web/wordmark.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 /**
  * Base layout of the home page (i.e. the header/background)
  */
-const Base = styled("div", {
+const Base = wrapLazyComponent("src/interface/Home#Base", styled("div", {
   base: {
     width: "100%",
     display: "flex",
@@ -33,7 +34,7 @@ const Base = styled("div", {
 
     color: "var(--md-sys-color-on-surface)",
   },
-});
+}));
 
 /**
  * Layout of the content as a whole
@@ -53,7 +54,7 @@ const content = cva({
 /**
  * Layout of the buttons
  */
-const Buttons = styled("div", {
+const Buttons = wrapLazyComponent("src/interface/Home#Buttons", styled("div", {
   base: {
     gap: "8px",
     padding: "8px",
@@ -65,12 +66,12 @@ const Buttons = styled("div", {
     color: "var(--md-sys-color-on-surface-variant)",
     background: "var(--md-sys-color-surface-variant)",
   },
-});
+}));
 
 /**
  * Make sure the columns are separated
  */
-const SeparatedColumn = styled(Column, {
+const SeparatedColumn = wrapLazyComponent("src/interface/Home#SeperatedColumn", styled(Column, {
   base: {
     justifyContent: "stretch",
     marginInline: "0.25em",
@@ -79,7 +80,7 @@ const SeparatedColumn = styled(Column, {
       flexGrow: 1,
     },
   },
-});
+}));
 
 /**
  * Home page
@@ -95,7 +96,8 @@ export function HomePage() {
   const isInLounge =
     client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
-  return (
+  return wrapComponent(
+    "src/interface/Home#HomePage",
     <Base>
       <Header placement="primary">
         <HeaderIcon>

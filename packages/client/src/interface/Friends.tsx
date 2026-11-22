@@ -35,11 +35,12 @@ import {
 import { Symbol } from "@revolt/ui/components/utils/Symbol";
 
 import { HeaderIcon } from "./common/CommonHeader";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common"; 
 
 /**
  * Base layout of the friends page
  */
-const Base = styled("div", {
+const Base = wrapLazyComponent("src/interface/Friends#Base", styled("div", {
   base: {
     width: "100%",
     display: "flex",
@@ -50,7 +51,7 @@ const Base = styled("div", {
       paddingInline: "var(--gap-lg)",
     },
   },
-});
+}));
 
 /**
  * Friends menu
@@ -102,7 +103,8 @@ export function Friends() {
 
   const [page, setPage] = createSignal("online");
 
-  return (
+  return wrapComponent(
+    "src/interface/Friends#Friends",
     <Base>
       <Header placement="primary">
         <HeaderIcon>
@@ -219,7 +221,8 @@ function People(props: {
   title: string;
   scrollTargetElement: Accessor<HTMLDivElement>;
 }) {
-  return (
+  return wrapComponent(
+    "src/interface/Friends#People",
     <List>
       <ListSubheader>
         {props.title} {"–"} {props.users.length}
@@ -261,11 +264,11 @@ function People(props: {
   );
 }
 
-const ContainerListEntry = styled("div", {
+const ContainerListEntry = wrapLazyComponent("src/interface/Friends#ContainerListEntry", styled("div", {
   base: {
     width: "100%",
   },
-});
+}));
 
 /**
  * Single user entry
@@ -279,7 +282,8 @@ function Entry(
   const { openModal } = useModals();
   const [local, remote] = splitProps(props, ["user"]);
 
-  return (
+  return wrapComponent(
+    "src/interface/Friends#Entry",
     <a
       {...remote}
       use:floating={{

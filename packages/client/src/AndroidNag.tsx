@@ -2,6 +2,7 @@ import { Trans } from "@lingui/solid/macro";
 import { PLAY_STORE_URL } from "@revolt/common/lib/links";
 import { useState } from "@revolt/state";
 import { Button, Text } from "@revolt/ui";
+import { wrapLazyComponent, wrapComponent } from "@revolt/common";
 import { Show, createSignal } from "solid-js";
 import { styled } from "styled-system/jsx";
 import AndroidPromo from "../public/assets/inapp-promotion/web/android-phone.png";
@@ -45,7 +46,8 @@ export function AndroidNag() {
     !dismissedThisSession() &&
     !permanentlyDismissed();
 
-  return (
+  return wrapComponent(
+    "src/AndroidNag#AndroidNag",
     <Show when={show()}>
       <Base>
         <Hero>
@@ -104,7 +106,7 @@ export function AndroidNag() {
 /**
  * Full screen container that sits above all other UI
  */
-const Base = styled("div", {
+const Base = wrapLazyComponent("src/AndroidNag#Base", styled("div", {
   base: {
     position: "fixed",
     inset: 0,
@@ -122,12 +124,12 @@ const Base = styled("div", {
     color: "var(--md-sys-color-on-surface)",
     background: "var(--md-sys-color-surface)",
   },
-});
+}));
 
 /**
  * Hero region: large image and supporting copy, centred above the actions
  */
-const Hero = styled("div", {
+const Hero = wrapLazyComponent("src/AndroidNag#Hero", styled("div", {
   base: {
     flex: "1",
 
@@ -143,21 +145,21 @@ const Hero = styled("div", {
       marginBottom: "var(--gap-md)",
     },
   },
-});
+}));
 
 /**
  * Headline, balanced so it doesn't leave a single orphan word on its own line
  */
-const Heading = styled("div", {
+const Heading = wrapLazyComponent("src/AndroidNag#Heading", styled("div", {
   base: {
     textWrap: "balance",
   },
-});
+}));
 
 /**
  * Body copy, width-constrained and padded for readability
  */
-const Copy = styled("div", {
+const Copy = wrapLazyComponent("src/AndroidNag#Copy", styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
@@ -168,12 +170,12 @@ const Copy = styled("div", {
     textWrap: "balance",
     color: "var(--md-sys-color-on-surface-variant)",
   },
-});
+}));
 
 /**
  * Actions pinned to the bottom of the screen
  */
-const Footer = styled("div", {
+const Footer = wrapLazyComponent("src/AndroidNag#Footer", styled("div", {
   base: {
     flexShrink: 0,
 
@@ -185,12 +187,12 @@ const Footer = styled("div", {
     gap: "var(--gap-md)",
     paddingTop: "var(--gap-lg)",
   },
-});
+}));
 
 /**
  * De-emphasised control for permanently dismissing the nag screen
  */
-const DismissLink = styled("button", {
+const DismissLink = wrapLazyComponent("src/AndroidNag#DismissLink", styled("button", {
   base: {
     appearance: "none",
     background: "none",
@@ -210,4 +212,4 @@ const DismissLink = styled("button", {
       color: "var(--md-sys-color-on-surface)",
     },
   },
-});
+}));

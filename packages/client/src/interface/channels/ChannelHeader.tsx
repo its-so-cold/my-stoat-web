@@ -22,6 +22,7 @@ import {
   typography,
   UserStatus,
 } from "@revolt/ui";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 import { HeaderIcon } from "../common/CommonHeader";
 
@@ -63,7 +64,8 @@ export function ChannelHeader(props: Props) {
     return "";
   };
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/ChannelHeader#ChannelHeader",
     <>
       <Switch>
         <Match
@@ -291,7 +293,7 @@ export function ChannelHeader(props: Props) {
   );
 }
 
-const SearchBox = styled("input", {
+const SearchBox = wrapLazyComponent("src/interface/channels/ChannelHeader#SearchBox", styled("input", {
   base: {
     height: "40px",
     width: "240px",
@@ -299,19 +301,19 @@ const SearchBox = styled("input", {
     borderRadius: "var(--borderRadius-full)",
     background: "var(--md-sys-color-surface-container-high)",
   },
-});
+}));
 
 /**
  * Vertical divider between name and topic
  */
-const Divider = styled("div", {
+const Divider = wrapLazyComponent("src/interface/channels/ChannelHeader#Divider", styled("div", {
   base: {
     height: "20px",
     margin: "0px 5px",
     paddingLeft: "1px",
     backgroundColor: "var(--md-sys-color-outline-variant)",
   },
-});
+}));
 
 /**
  * Link for the description

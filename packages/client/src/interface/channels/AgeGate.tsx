@@ -7,6 +7,7 @@ import { styled } from "styled-system/jsx";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Checkbox, CircularProgress, Symbol, Text } from "@revolt/ui";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common"
 
 type GeoBlock = {
   countryCode: string;
@@ -43,7 +44,8 @@ export function AgeGate(props: {
     throwOnError: true,
   }));
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/AgeGate#AgeGate",
     <Suspense fallback={<CircularProgress />}>
       <Switch fallback={props.children}>
         <Match
@@ -127,7 +129,7 @@ export function AgeGate(props: {
   );
 }
 
-const Base = styled("div", {
+const Base = wrapLazyComponent("src/interface/channels/AgeGate#Base", styled("div", {
   base: {
     height: "100%",
 
@@ -147,20 +149,20 @@ const Base = styled("div", {
 
     gap: "var(--gap-md)",
   },
-});
+}));
 
-const Confirmation = styled("label", {
+const Confirmation = wrapLazyComponent("src/interface/channels/AgeGate#Confirmation", styled("label", {
   base: {
     display: "flex",
     gap: "var(--gap-sm)",
     alignItems: "center",
   },
-});
+}));
 
-const Actions = styled("div", {
+const Actions = wrapLazyComponent("src/interface/channels/AgeGate#Actions", styled("div", {
   base: {
     display: "flex",
     marginTop: "var(--gap-lg)",
     gap: "var(--gap-lg)",
   },
-});
+}));

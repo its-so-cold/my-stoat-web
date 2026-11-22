@@ -8,6 +8,7 @@ import { css } from "styled-system/css";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Symbol } from "@revolt/ui";
+import { wrapComponent } from "@revolt/common"; 
 
 /**
  * Wrapper for header icons which adds the chevron on the
@@ -18,7 +19,8 @@ export function HeaderIcon(props: { children: JSX.Element }) {
   const state = useState();
   const { t } = useLingui();
 
-  return (
+  return wrapComponent(
+    "src/interface/common/CommonHeader#HeaderIcon",
     <div
       class={container}
       onClick={() => {

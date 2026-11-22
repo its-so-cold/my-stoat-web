@@ -6,6 +6,7 @@ import { API, Channel } from "stoat.js";
 
 import { Message } from "@revolt/app";
 import { Button, CircularProgress, Row } from "@revolt/ui";
+import { wrapComponent } from "@revolt/common"; 
 
 /**
  * Message search sidebar
@@ -31,7 +32,8 @@ export function TextSearchSidebar(props: {
         .then((result) => result.messages),
   }));
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/TextSearchSidebar#TextSearchSidebar",
     <>
       <Show when={!props.query.sort}>
         <Row gap="xs" justify="stretch">

@@ -1,3 +1,5 @@
+import { wrapComponent } from "@revolt/common";
+
 interface Props {
   // Whether this is being placed under the top item on the list
   topItem?: boolean;
@@ -8,7 +10,8 @@ interface Props {
  */
 export function Swoosh(props: Props) {
   // TODO: should depend on if server sidebar is hidden
-  return (
+  return wrapComponent(
+    "src/interface/navigation/servers/Swoosh#Swoosh",
     <svg
       width="56"
       height="106"

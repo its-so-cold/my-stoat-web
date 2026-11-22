@@ -13,7 +13,7 @@ import { useLingui } from "@lingui/solid/macro";
 import type { Channel, Server, ServerFlags } from "stoat.js";
 import { styled } from "styled-system/jsx";
 
-import { getChannelIcon, useDevice } from "@revolt/common";
+import { getChannelIcon, useDevice, wrapComponent, wrapLazyComponent } from "@revolt/common";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
@@ -213,7 +213,8 @@ export const ServerSidebar = (props: Props) => {
     }
   }
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/ServerSidebar#ServerSidebar",
     <SidebarBase
       class="channel_bar server"
       use:floating={props.menuGenerator(props.server)}
@@ -300,14 +301,14 @@ export const ServerSidebar = (props: Props) => {
   );
 };
 
-const ChannelList = styled("div", {
+const ChannelList = wrapLazyComponent("src/interface/navigation/channels/ServerSidebar#ChannelList", styled("div", {
   base: {
     position: "relative",
     flexGrow: 1,
     minHeight: 0,
     marginBottom: "var(--gap-md)",
   },
-});
+}));
 
 /**
  * Server Information
@@ -317,7 +318,8 @@ function ServerInfo(
     canManageServer: boolean;
   },
 ) {
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/ServerSidebar#ServerInfo",
     <Row align grow minWidth={0}>
       <ServerBadge flags={props.server.flags} />
       <ServerName onClick={props.openServerInfo}>
@@ -342,7 +344,7 @@ function ServerInfo(
 /**
  * Server name
  */
-const ServerName = styled("a", {
+const ServerName = wrapLazyComponent("src/interface/navigation/channels/ServerSidebar#ServerName", styled("a", {
   base: {
     flexGrow: 1,
     minWidth: 0,
@@ -351,7 +353,7 @@ const ServerName = styled("a", {
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
   },
-});
+}));
 
 /**
  * Server badge
@@ -359,7 +361,8 @@ const ServerName = styled("a", {
 function ServerBadge(props: { flags: ServerFlags }) {
   const { t } = useLingui();
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/ServerSidebar#ServerBadge",
     <Show when={props.flags}>
       <Tooltip
         content={props.flags === 1 ? t`Official Server` : t`Verified`}
@@ -404,7 +407,8 @@ function Category(
     ),
   );
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/ServerSidebar#Category",
     <CategorySection>
       <Show when={props.category.id !== "default"}>
         <div use:floating={props.menuGenerator(props.category as never)}>
@@ -455,7 +459,7 @@ function Category(
   );
 }
 
-const CategorySection = styled("div", {
+const CategorySection = wrapLazyComponent("src/interface/navigation/channels/ServerSidebar#CategorySection", styled("div", {
   base: {
     display: "flex",
     gap: "var(--gap-sm)",
@@ -468,12 +472,12 @@ const CategorySection = styled("div", {
       paddingTop: 0,
     },
   },
-});
+}));
 
 /**
  * Category title styling
  */
-const CategoryBase = styled("div", {
+const CategoryBase = wrapLazyComponent("src/interface/navigation/channels/ServerSidebar#CategoryBase", styled("div", {
   base: {
     display: "flex",
     alignItems: "center",
@@ -511,7 +515,7 @@ const CategoryBase = styled("div", {
       },
     },
   },
-});
+}));
 
 /**
  * Server channel entry
@@ -555,7 +559,8 @@ function Entry(
             : "normal",
   );
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/ServerSidebar#Entry",
     <Column gap="sm">
       <MenuButton
         href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}
@@ -639,10 +644,10 @@ function Entry(
 /**
  * Channel icon styling
  */
-const ChannelIcon = styled("img", {
+const ChannelIcon = wrapLazyComponent("src/interface/navigation/channels/ServerSidebar#ChannelIcon", styled("img", {
   base: {
     width: "16px",
     height: "16px",
     objectFit: "contain",
   },
-});
+}));

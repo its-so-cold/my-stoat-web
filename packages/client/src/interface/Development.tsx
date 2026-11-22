@@ -21,13 +21,14 @@ import {
   Text,
   TextField,
 } from "@revolt/ui";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common"; 
 
-const NewComponent = styled("div", {
+const NewComponent = wrapLazyComponent("src/interface/Development#NewComponent", styled("div", {
   base: {
     background: "blue",
     color: "white",
   },
-});
+}));
 
 const newComponent = cva({
   base: {
@@ -52,7 +53,8 @@ function FormTest() {
 
   const submit = Form2.useSubmitHandler(group, onSubmit);
 
-  return (
+  return wrapComponent(
+    "src/interface/Development#FormTest",
     <form onSubmit={submit}>
       <label for="name">Your name</label>
       <Form2.TextField
@@ -90,7 +92,8 @@ export function DevelopmentPage() {
 
   const manyData = new Array(1000).fill(0).map((_, idx) => idx);
 
-  return (
+  return wrapComponent(
+    "src/interface/Development#DevelopmentPage",
     <Column>
       <Button
         onPress={() => {

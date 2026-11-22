@@ -12,7 +12,7 @@ import { useLingui } from "@lingui/solid/macro";
 import { Channel } from "stoat.js";
 
 import { useClient } from "@revolt/client";
-import { debounce } from "@revolt/common";
+import { debounce, wrapComponent } from "@revolt/common";
 import { createIsTimedOut } from "@revolt/common/lib/createIsTimedOut";
 import { useInstance } from "@revolt/instance";
 import { createKeybind, Keybind, KeybindAction } from "@revolt/keybinds";
@@ -321,7 +321,8 @@ export function MessageComposition(props: Props) {
 
   const searchSpace = useSearchSpace(() => props.channel, client);
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/Composition#MessageComposition",
     <>
       <Show when={state.draft.hasAdditionalElements(props.channel.id)}>
         <Keybind

@@ -15,8 +15,9 @@ import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 
 import { HomeSidebar, ServerList, ServerSidebar } from "./navigation";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
-const MainBar = styled("div", {
+const MainBar = wrapLazyComponent("src/interface/Sidebar#MainBar", styled("div", {
   base: {
     display: "flex",
     flexShrink: 0,
@@ -28,7 +29,7 @@ const MainBar = styled("div", {
       height: "100%",
     },
   },
-});
+}));
 
 /**
  * Left-most channel navigation sidebar
@@ -47,7 +48,8 @@ export const Sidebar = (props: {
   const params = useParams<{ server: string }>();
   const location = useLocation();
 
-  return (
+  return wrapComponent(
+    "src/interface/Sidebar#Sidebar",
     <MainBar class="main_bar">
       <ServerList
         orderedServers={state.ordering.orderedServers(client())}
@@ -96,7 +98,8 @@ const Home: Component = () => {
     state.ordering.orderedConversations(client()),
   );
 
-  return (
+  return wrapComponent(
+    "src/interface/Sidebar#Home",
     <HomeSidebar
       conversations={conversations}
       channelId={params().channelId}
@@ -160,7 +163,8 @@ const Server: Component = () => {
     });
   }
 
-  return (
+  return wrapComponent(
+    "src/interface/Sidebar#Server",
     <Show when={server()}>
       <ServerSidebar
         server={server()}

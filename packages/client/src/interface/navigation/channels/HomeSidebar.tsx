@@ -8,7 +8,7 @@ import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { useDevice } from "@revolt/common";
+import { useDevice, wrapComponent, wrapLazyComponent } from "@revolt/common";
 import Instance from "@revolt/instance/Instance";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
@@ -65,7 +65,8 @@ export const HomeSidebar = (props: Props) => {
       .length;
   });
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/HomeSidebar#HomeSidebar",
     <SidebarBase class="channel_bar home">
       <div ref={scrollTargetElement} use:invisibleScrollable>
         <List>
@@ -198,7 +199,7 @@ export const HomeSidebar = (props: Props) => {
   );
 };
 
-export const Header = styled("div", {
+export const Header = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#Header", styled("div", {
   base: {
     alignItems: "center",
     fontWeight: 600,
@@ -213,21 +214,21 @@ export const Header = styled("div", {
     color: "var(--md-sys-color-on-surface)",
     backgroundColor: "var(--md-sys-color-surface-variant)",
   },
-});
+}));
 
 /**
  * Button title
  */
-const ButtonTitle = styled("div", {
+const ButtonTitle = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#ButtonTitle", styled("div", {
   base: {
     gap: "var(--gap-md)",
     height: "100%",
     display: "flex",
     alignItems: "center",
   },
-});
+}));
 
-const PendingBadge = styled("div", {
+const PendingBadge = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#PendingBadge", styled("div", {
   base: {
     ...typography.raw({ class: "label", size: "small" }),
     padding: "var(--gap-sm) var(--gap-md)",
@@ -235,9 +236,9 @@ const PendingBadge = styled("div", {
     background: "var(--md-sys-color-error)",
     borderRadius: "var(--borderRadius-md)",
   },
-});
+}));
 
-const Category = styled("div", {
+const Category = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#Category", styled("div", {
   base: {
     display: "flex",
     paddingInline: "var(--gap-lg)",
@@ -249,19 +250,19 @@ const Category = styled("div", {
     ...typography.raw({ class: "label", size: "small" }),
     fontSize: "13px",
   },
-});
+}));
 
 /**
  * Styles required to correctly display name and status
  */
-const NameStatusStack = styled("div", {
+const NameStatusStack = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#NameStatusStack", styled("div", {
   base: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
   },
-});
+}));
 
 /**
  * Single conversation entry
@@ -293,7 +294,8 @@ function Entry(
               : t`Offline`,
     );
 
-  return (
+  return wrapComponent(
+    "src/interface/navigation/channels/HomeSidebar#Entry",
     <MenuButton
       {...remote}
       href={`/channel/${local.channel.id}`}
@@ -391,8 +393,8 @@ function Entry(
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styled("div", {
+const List = wrapLazyComponent("src/interface/navigation/channels/HomeSidebar#List", styled("div", {
   base: {
     width: "var(--layout-width-channel-sidebar)",
   },
-});
+}));

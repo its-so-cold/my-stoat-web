@@ -5,6 +5,7 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { Navigate, useParams } from "@revolt/routing";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";
@@ -12,7 +13,7 @@ import { TextChannel } from "./text/TextChannel";
 /**
  * Channel layout
  */
-const Base = styled("div", {
+const Base = wrapLazyComponent("src/interface/channels/ChannelPage#Base", styled("div", {
   base: {
     minWidth: 0,
     flexGrow: 1,
@@ -20,7 +21,7 @@ const Base = styled("div", {
     position: "relative",
     flexDirection: "column",
   },
-});
+}));
 
 export interface ChannelPageProps {
   channel: Channel;
@@ -41,7 +42,8 @@ export const ChannelPage: Component = () => {
   const client = useClient();
   const channel = createMemo(() => client()!.channels.get(params.channel)!);
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/ChannelPage#ChannelPage",
     <Base>
       <Switch fallback="Unknown channel type!">
         <Match when={!channel()}>

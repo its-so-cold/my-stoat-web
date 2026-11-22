@@ -26,6 +26,7 @@ import {
   main,
 } from "@revolt/ui";
 import { VoiceChannelCallCardMount } from "@revolt/ui/components/features/voice/callCard/VoiceCallCard";
+import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -190,7 +191,8 @@ export function TextChannel(props: ChannelPageProps) {
     ),
   );
 
-  return (
+  return wrapComponent(
+    "src/interface/channels/text/TextChannel#TextChannel",
     <>
       <Header placement="primary">
         <ChannelHeader
@@ -315,7 +317,7 @@ export function TextChannel(props: ChannelPageProps) {
 /**
  * Main content row layout
  */
-const Content = styled("div", {
+const Content = wrapLazyComponent("src/interface/channels/text/TextChannel#Content", styled("div", {
   base: {
     display: "flex",
     flexDirection: "row",
@@ -323,7 +325,7 @@ const Content = styled("div", {
     minWidth: 0,
     minHeight: 0,
   },
-});
+}));
 
 /**
  * Base styles
@@ -342,19 +344,19 @@ const sidebar = cva({
 /**
  * Container styles
  */
-const WideSidebarContainer = styled("div", {
+const WideSidebarContainer = wrapLazyComponent("src/interface/channels/text/TextChannel#WideSidebarContainer", styled("div", {
   base: {
     paddingRight: "var(--gap-md)",
     width: "360px",
   },
-});
+}));
 
 /**
  * Sidebar title
  */
-const SidebarTitle = styled("div", {
+const SidebarTitle = wrapLazyComponent("SidebarTitle", styled("div", {
   base: {
     padding: "var(--gap-md)",
     color: "var(--md-sys-color-on-surface)",
   },
-});
+}));
