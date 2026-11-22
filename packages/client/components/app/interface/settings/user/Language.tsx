@@ -124,6 +124,10 @@ function PickDateFormat() {
           shortDesc: <Trans>ISO Standard (YYYY-MM-DD)</Trans>,
           description: <Time format="iso8601" value={LastWeek} />,
         },
+        "DD-MMM-YYYY": {
+          shortDesc: <Trans>Military (DD-MMM-YYYY)</Trans>,
+          description: <Time format="dateMilitary" value={LastWeek} />
+        }
       }}
       onUpdate={(f) => locale.setDateFormat(f)}
     />
