@@ -13,7 +13,6 @@ import type { Client, User } from "stoat.js";
 
 import { useInstance } from "@revolt/instance";
 import { useModals } from "@revolt/modal";
-import { fetchLatestChangelog } from "@revolt/modal/modals/Changelog";
 import { useState } from "@revolt/state";
 import { LoadingScreen } from "@revolt/ui";
 
@@ -39,24 +38,6 @@ export function ClientContext(props: {
 
   const controller = new ClientController(state, instance, setReady);
   onCleanup(() => controller.dispose());
-
-  let fetchedChangelog = false;
-  createEffect(() => {
-    if (!controller.isLoggedIn() || fetchedChangelog) return;
-    fetchedChangelog = true;
-
-    fetchLatestChangelog().then((changelog) => {
-      if (!changelog) return;
-      if (state["release-notes"].lastSeenId === changelog.id) return;
-
-      state["release-notes"].markSeen(changelog.id, changelog.published_at);
-
-      openModal({
-        type: "changelog",
-        changelog,
-      });
-    });
-  });
 
   createEffect(() => {
     const policy = controller.lifecycle.policyAttentionRequired();

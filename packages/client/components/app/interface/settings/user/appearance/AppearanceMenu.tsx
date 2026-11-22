@@ -122,7 +122,7 @@ export function AppearanceMenu() {
             <input
               ref={setPickerRef}
               type="color"
-              value={state.theme.m3Accent ?? "#ffffff"}
+              value={state.theme.m3Accent ?? "#EC4899"}
               onInput={(e) => {
                 const colour = (e.currentTarget as HTMLInputElement).value;
                 state.theme.setM3Accent(colour);
@@ -139,11 +139,12 @@ export function AppearanceMenu() {
             <For
               each={[
                 "#FF5733",
-                "#ffdc2f",
-                "#9bf088",
-                "#54ecc1",
-                "#549bec",
-                "#5470ec",
+                "#EC4899",
+                "#FFDC2F",
+                "#9BF088",
+                "#54ECC1",
+                "#549BEC",
+                "#5470EC",
                 "#8C5FD3",
               ]}
             >

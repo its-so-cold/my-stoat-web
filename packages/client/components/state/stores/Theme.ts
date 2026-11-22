@@ -134,12 +134,12 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       preset: "you",
       mode: "system",
 
-      m3Accent: "#5470ec",
+      m3Accent: "#EC4899",
       m3Contrast: 0.0,
       m3Variant: "tonal_spot",
 
-      interfaceFont: "Inter",
-      monospaceFont: "Fira Code",
+      interfaceFont: "Noto Sans",
+      monospaceFont: "JetBrains Mono",
 
       blur: true,
       messageSize: 14,

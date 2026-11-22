@@ -161,5 +161,5 @@ export type MonospaceFonts = keyof typeof MONOSPACE_FONTS;
 export const FONT_KEYS = Object.keys(FONTS).sort();
 export const MONOSPACE_FONT_KEYS = Object.keys(MONOSPACE_FONTS).sort();
 
-export const DEFAULT_FONT = "Open Sans";
-export const DEFAULT_MONO_FONT = "Fira Code";
+export const DEFAULT_FONT = "Noto Sans";
+export const DEFAULT_MONO_FONT = "JetBrains Mono";

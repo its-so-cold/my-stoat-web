@@ -207,32 +207,6 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           ],
         },
         {
-          title: "Stoat",
-          entries: [
-            {
-              id: "bots",
-              icon: <Symbol size={20}>smart_toy</Symbol>,
-              title: <Trans>My Bots</Trans>,
-            },
-            {
-              id: "feedback",
-              icon: <Symbol size={20}>rate_review</Symbol>,
-              title: <Trans>Feedback</Trans>,
-            },
-          ],
-        },
-        {
-          title: <Trans>Subscriptions</Trans>,
-          hidden: import.meta.env.PROD,
-          entries: [
-            {
-              id: "subscribe",
-              icon: <Symbol size={20}>workspace_premium</Symbol>,
-              title: "[premium]",
-            },
-          ],
-        },
-        {
           title: <Trans>Client Settings</Trans>,
           entries: [
             // {
@@ -303,28 +277,14 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         {
           entries: [
             {
-              onClick: async () => {
-                const changelog = await fetchLatestChangelog();
-                if (!changelog) return;
-                openModal({ type: "changelog", changelog });
-              },
-              icon: <Symbol size={20}>campaign</Symbol>,
-              title: <Trans>What's New</Trans>,
-            },
-            {
-              href: "https://github.com/stoatchat",
+              href: "https://github.com/its-so-cold/my-stoat-web",
               icon: <Symbol size={20}>memory</Symbol>,
-              title: <Trans>Source Code</Trans>,
+              title: <Trans>Fork Source Code</Trans>,
             },
             {
               id: "advanced",
               icon: <Symbol size={20}>science</Symbol>,
               title: <Trans>Advanced</Trans>,
-            },
-            {
-              href: "https://ko-fi.com/stoatchat",
-              icon: <Symbol size={20}>coffee</Symbol>,
-              title: <Trans>Donate</Trans>,
             },
             {
               id: "logout",
@@ -342,6 +302,40 @@ const Config: SettingsConfiguration<{ server: Server }> = {
                 pop();
                 logout();
               },
+            },
+          ],
+        },
+        {
+          title: "Stoat",
+          entries: [
+            {
+              id: "bots",
+              icon: <Symbol size={20}>smart_toy</Symbol>,
+              title: <Trans>My Bots</Trans>,
+            },
+            {
+              id: "feedback",
+              icon: <Symbol size={20}>rate_review</Symbol>,
+              title: <Trans>Feedback</Trans>,
+            },
+            {
+              onClick: async () => {
+                const changelog = await fetchLatestChangelog();
+                if (!changelog) return;
+                openModal({ type: "changelog", changelog });
+              },
+              icon: <Symbol size={20}>campaign</Symbol>,
+              title: <Trans>What's New</Trans>,
+            },
+            {
+              href: "https://github.com/stoatchat",
+              icon: <Symbol size={20}>memory</Symbol>,
+              title: <Trans>Stoat Source Code</Trans>,
+            },
+            {
+              href: "https://ko-fi.com/stoatchat",
+              icon: <Symbol size={20}>coffee</Symbol>,
+              title: <Trans>Donate</Trans>,
             },
           ],
         },

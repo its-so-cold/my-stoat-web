@@ -84,7 +84,7 @@ export class Sounds extends AbstractStore<"sounds", TypeSounds> {
   default(): TypeSounds {
     return {
       deafen: true,
-      message: true,
+      message: false,
       mute: true,
       ringtoneIncoming: true,
       ringtoneOutgoing: true,

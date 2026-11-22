@@ -31,7 +31,9 @@ export class LinkSafety extends AbstractStore<"linkSafety", TypeLinkSafety> {
    */
   default(): TypeLinkSafety {
     return {
-      savedOrigins: [],
+      savedOrigins: [
+        "https://miyo.icu",
+      ],
     };
   }
 
