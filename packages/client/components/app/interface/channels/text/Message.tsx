@@ -301,7 +301,7 @@ export function Message(props: Props) {
                 </Symbol>
               </Tooltip>
             </Match>
-            <Match
+            {/*<Match
               when={
                 props.message.authorId &&
                 dayjs().diff(decodeTime(props.message.authorId), "day") < 1
@@ -326,7 +326,7 @@ export function Message(props: Props) {
                   <Symbol size={16}>spa</Symbol>
                 </Tooltip>
               </NewUser>
-            </Match>
+            </Match>*/}
             {/* <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
             <span />
             <span>placeholder &middot; </span>
