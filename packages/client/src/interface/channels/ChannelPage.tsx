@@ -9,6 +9,7 @@ import { wrapComponent, wrapLazyComponent } from "@revolt/common";
 
 import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";
+import { useState } from "@revolt/state";
 
 /**
  * Channel layout
@@ -39,6 +40,7 @@ const TEXT_CHANNEL_TYPES: Channel["type"][] = [
  */
 export const ChannelPage: Component = () => {
   const params = useParams();
+  const state = useState();
   const client = useClient();
   const channel = createMemo(() => client()!.channels.get(params.channel)!);
 
@@ -51,7 +53,7 @@ export const ChannelPage: Component = () => {
         </Match>
         <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.type)}>
           <AgeGate
-            enabled={channel().mature}
+            enabled={channel().mature && !state.settings.getValue("account:is_adult")}
             contentId={channel().id}
             contentName={"#" + channel().name}
             contentType="channel"

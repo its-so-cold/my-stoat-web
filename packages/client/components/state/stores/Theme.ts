@@ -73,6 +73,11 @@ export type TypeTheme = {
    * Spacing between message groups
    */
   messageGroupSpacing: number;
+
+  /**
+   * Whether spoilers will be unspoiled by default
+   */
+  disableSpoilers: boolean;
 };
 
 export type SelectedTheme = Pick<
@@ -82,6 +87,7 @@ export type SelectedTheme = Pick<
   | "monospaceFont"
   | "messageSize"
   | "messageGroupSpacing"
+  | "disableSpoilers"
 > & {
   preset: "you";
   darkMode: boolean;
@@ -117,6 +123,7 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       .addEventListener("change", (event) => setPrefersDark(event.matches));
 
     this.toggleBlur = this.toggleBlur.bind(this);
+    this.toggleDisableSpoilers = this.toggleDisableSpoilers.bind(this);
   }
 
   /**
@@ -144,6 +151,8 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       blur: true,
       messageSize: 14,
       messageGroupSpacing: 12,
+
+      disableSpoilers: false,
     };
   }
 
@@ -214,6 +223,10 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       data.interfaceFont = input.interfaceFont;
     }
 
+    if (typeof input.disableSpoilers === 'boolean') {
+      data.disableSpoilers = input.disableSpoilers;
+    }
+
     return data;
   }
 
@@ -239,6 +252,7 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
           accent: opts.m3Accent,
           contrast: opts.m3Contrast,
           variant: opts.m3Variant,
+          disableSpoilers: opts.disableSpoilers,
         };
     }
   }
@@ -386,5 +400,19 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
    */
   set messageGroupSpacing(space: number) {
     this.set("messageGroupSpacing", space);
+  }
+
+  /**
+   * Get current spoiler disablance state
+   */
+  get disableSpoilers() {
+    return this.get().disableSpoilers;
+  }
+
+  /**
+   * Toggle spoiler disablance state
+   */
+  toggleDisableSpoilers() {
+    this.set("disableSpoilers", !this.disableSpoilers);
   }
 }

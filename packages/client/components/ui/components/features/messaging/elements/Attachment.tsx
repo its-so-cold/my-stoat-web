@@ -4,6 +4,7 @@ import { File, ImageEmbed, Message, VideoEmbed } from "stoat.js";
 import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { useState } from "@revolt/state"
 import { MessageContextMenu, useMessage } from "@revolt/app";
 import { useModals } from "@revolt/modal";
 import { Column } from "@revolt/ui/components/layout";
@@ -50,6 +51,7 @@ export const AttachmentContainer = styled(Column, {
 export function Attachment(props: { file: File; message?: Message }) {
   const { openModal } = useModals();
   const { reactPicker } = useMessage();
+  const state = useState();
 
   return (
     <Switch fallback={`Could not render ${props.file.metadata.type}!`}>
@@ -58,7 +60,7 @@ export function Attachment(props: { file: File; message?: Message }) {
           width={(props.file.metadata as ImageEmbed).width}
           height={(props.file.metadata as ImageEmbed).height}
         >
-          <Show when={props.file.isSpoiler}>
+          <Show when={props.file.isSpoiler && !state.theme.disableSpoilers}>
             <Spoiler contentType="Image" />
           </Show>
           <img

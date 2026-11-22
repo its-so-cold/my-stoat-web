@@ -1,17 +1,23 @@
-import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
-
+import { createMemo, createSignal, Match, Show, Switch, Suspense } from "solid-js";
+import { useQuery } from "@tanstack/solid-query";
 import { Trans, useLingui } from "@lingui/solid/macro";
 
+import { useState } from "@revolt/state";
 import { useClient, useClientLifecycle } from "@revolt/client";
 import {
   createMfaResource,
   createOwnProfileResource,
 } from "@revolt/client/resources";
 import { useModals } from "@revolt/modal";
-import { CategoryButton, Column, Row, Symbol, useSnackbar } from "@revolt/ui";
+import { CategoryButton, Checkbox, Column, Row, Symbol, CircularProgress, useSnackbar } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 import { UserSummary } from "./account/index";
+
+type GeoBlock = {
+  countryCode: string;
+  isAgeRestrictedGeo: boolean;
+};
 
 /**
  * Account Page
@@ -20,6 +26,19 @@ export function MyAccount(props: { onClose?: () => void }) {
   const client = useClient();
   const profile = createOwnProfileResource();
   const { navigate } = useSettingsNavigation();
+
+  const geoQuery = useQuery(() => ({
+    queryKey: ["geoblock"],
+    queryFn: async (): Promise<GeoBlock> => {
+      const response = await fetch("https://geo.stoat.chat");
+      if (!response.ok) {
+        throw new Error("Failed to fetch geo data");
+      }
+      return response.json();
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    throwOnError: true,
+  }));
 
   return (
     <Column gap="lg">
@@ -32,6 +51,18 @@ export function MyAccount(props: { onClose?: () => void }) {
       <EditAccount onClose={props.onClose} />
       <MultiFactorAuth />
       <ManageAccount />
+      
+      <Suspense fallback={<CircularProgress />}>
+        <Show
+          when={
+            !(geoQuery.isLoading ||
+              geoQuery.error ||
+              (geoQuery.data && geoQuery.data.isAgeRestrictedGeo))
+          }
+        >
+          <ManageAge />
+        </Show>
+      </Suspense>
     </Column>
   );
 }
@@ -349,6 +380,26 @@ function ManageAccount() {
           </Match>
         </Switch>
       </CategoryButton>
+    </CategoryButton.Group>
+  );
+}
+
+function ManageAge() {
+  const state = useState();
+
+  return (
+    <CategoryButton.Group>
+      <Checkbox
+        checked={state.settings.getValue("account:is_adult")}
+        onChange={(e) => {
+          state.settings.setValue(
+            "account:is_adult",
+            e.currentTarget.checked,
+          )
+        }}
+      >
+        I confirm I am at least 18 years old and do not want to manually confirm this on all adult channels.
+      </Checkbox>
     </CategoryButton.Group>
   );
 }

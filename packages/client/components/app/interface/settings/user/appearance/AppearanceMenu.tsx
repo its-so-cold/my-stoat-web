@@ -305,6 +305,12 @@ export function AppearanceMenu() {
           </Trans>
         </Checkbox>
 
+        <Checkbox checked={state.theme.disableSpoilers} onChange={state.theme.toggleDisableSpoilers}>
+          <Trans>
+            Make spoilers un-spoil by default
+          </Trans>
+        </Checkbox>
+
         <Preview>
           <MessagePreview>
             <MessageContainer
