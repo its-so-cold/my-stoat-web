@@ -11,6 +11,7 @@ interface Props {
     | "date"
     | "dateNormal"
     | "dateAmerican"
+    | "dateMilitary"
     | "iso8601"
     | "relative"
     | "time"
@@ -46,6 +47,8 @@ export function formatTime(
         return dayjs(options.value).format("DD/MM/YYYY");
       case "dateAmerican":
         return dayjs(options.value).format("MM/DD/YYYY");
+      case "dateMilitary":
+        return dayjs(options.value).format("DD-MMM-YYYY");
       case "iso8601":
         return dayjs(options.value).format("YYYY-MM-DD");
       case "relative":
