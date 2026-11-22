@@ -11,7 +11,7 @@ import { MailProvider } from "./MailProvider";
 /**
  * Keep track of email within the same session
  */
-let email = "postmaster@revolt.wtf";
+let email = "postmaster@stoatinternal.com";
 
 /**
  * Persist email information temporarily

@@ -18,7 +18,6 @@ Fixes # (issue)
 
 ## Checklist:
 
-- [ ] I have carefully read [the contributing guidelines](https://developers.stoat.chat/developing/contrib/)
 - [ ] I have performed a self-review of my own code
 - [ ] I have made corresponding changes to the documentation if applicable
 - [ ] I have no unrelated changes in the PR
@@ -26,6 +25,6 @@ Fixes # (issue)
 - [ ] I have written tests for new code (if applicable)
 - [ ] I have followed naming conventions/patterns in the surrounding code
 
-## Please declare, if any, LLM usage involved in creating this PR
+## NO AI ALLOWED
 
 ...

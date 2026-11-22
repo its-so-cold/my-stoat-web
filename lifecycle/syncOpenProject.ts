@@ -23,7 +23,7 @@ const data: {
     }[];
   };
 } = await fetch(
-  "https://op.revolt.wtf/api/v3/projects/8/work_packages?" + params.toString(),
+  "https://op.stoatinternal.com/api/v3/projects/8/work_packages?" + params.toString(),
   {
     headers: {
       accept: "application/hal+json",
@@ -127,14 +127,14 @@ for (const issue of issues) {
         },
         body: JSON.stringify({
           title: PREFIX + issue.subject,
-          body: `**[View issue on OpenProject](${`https://op.revolt.wtf/projects/revolt-for-web/work_packages/${issue.id}/activity`})**`,
+          body: `**[View issue on OpenProject](${`https://op.stoatinternal.com/projects/revolt-for-web/work_packages/${issue.id}/activity`})**`,
         }),
       },
     ).then((r) => r.json());
 
     const url = `**[View issue on GitHub](${result.html_url})**`;
     await fetch(
-      `https://op.revolt.wtf/api/v3/work_packages/${issue.id}?notify=false`,
+      `https://op.stoatinternal.com/api/v3/work_packages/${issue.id}?notify=false`,
       {
         method: "PATCH",
         body: JSON.stringify({
