@@ -301,6 +301,19 @@ export function Message(props: Props) {
                 </Symbol>
               </Tooltip>
             </Match>
+            <Match
+              when={
+                props.message.authorId === `01JE0J2GY1Z13SWPKBHM3YK6XP`
+              }
+            >
+              <CertifiedCoolUser>
+                <Tooltip content={t`Certified Cool`} placement="top">
+                  <Symbol size={16} fill>
+                    womanyuri
+                  </Symbol>
+                </Tooltip>
+              </CertifiedCoolUser>
+            </Match>
             {/*<Match
               when={
                 props.message.authorId &&
@@ -423,6 +436,15 @@ export function Message(props: Props) {
  * New user indicator
  */
 const NewUser = styled("div", {
+  base: {
+    fill: "var(--md-sys-color-primary)",
+  },
+});
+
+/**
+ * Certified cool user indicator
+ */
+const CertifiedCoolUser = styled("div", {
   base: {
     fill: "var(--md-sys-color-primary)",
   },
