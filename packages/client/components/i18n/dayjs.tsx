@@ -88,6 +88,8 @@ export function updateTimeLocaleOptions(
 
 /**
  * Initialisation function
+ * 
+ * @todo brother this is breaking everything (probably) :sob:
  */
 export function initTime() {
   loadTimeLocale(Languages.en, {}, locale_en_GB);
